@@ -103,7 +103,7 @@ def maik_response():
         }
         result = graph.invoke(input=state)
         send_msg(
-            url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=str(result.get('answer'))
+            url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=str(result.get('answer')["output"])
         )
         return result.get('answer')
     return "ok"
