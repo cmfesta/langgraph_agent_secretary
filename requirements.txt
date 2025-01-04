@@ -7,3 +7,4 @@ langsmith
 pandas
 unicodedata
 flask
+sentence-transformers
