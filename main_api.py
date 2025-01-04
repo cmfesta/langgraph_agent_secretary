@@ -41,15 +41,15 @@ llm_s = ChatGroq(
 chatbot = ChatBot(instructions=instructions,llm=llm,db_path="sqlite:///sqlite.db")
 validate_agent = ValidateInfoAgent(llm=llm_s,db_path="sqlite.db")
 
-graph = AgentWorkFlow(state=State,
+agent_workflow = AgentWorkFlow(state=State,
                       chatbot=chatbot,
                       validate_agent=validate_agent,
                       create_meet=createMeetAgent(),
                       delete_meet=DeleteMeetAgent(),
                       reschedule_meet=RescheduleMeetAgent())
+
+graph = agent_workflow.build_graph()
                       
-
-
 
 with open('wpp_conn_key.json', 'r') as file:
     wpp_creds = json.load(file)
@@ -101,11 +101,11 @@ def maik_response():
             "tool_type": "",         # Pode ser ajustado dependendo da ferramenta
             "valid_params": False,   # Pode ser alterado para True conforme necessário
         }
-        ai_message = graph.invoke(input=state)
+        result = graph.invoke(input=state)
         send_msg(
-            url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=str(state["answer"])
+            url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=str(result.get('answer'))
         )
-        return state["answer"]
+        return result.get('answer')
     return "ok"
 
 
