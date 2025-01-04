@@ -7,10 +7,13 @@ from utils import createMeetAgent,DeleteMeetAgent,RescheduleMeetAgent
 from main_ai_workflow import AgentWorkFlow
 from chat_bot_node import ChatBot
 from validate_agent_node import ValidateInfoAgent
-
+import os
 # creating a Flask app
 app = Flask(__name__)
 
+os.environ["GROQ_API_KEY"] = instructions = open(
+    "secrets.txt", "r", encoding="utf-8"
+).read()
 
 # instructions = open("scripts/instrucao_dif.txt", "r", encoding="utf-8").read()
 instructions = open(
