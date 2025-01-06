@@ -102,13 +102,13 @@ def maik_response():
             "valid_params": False,   # Pode ser alterado para True conforme necessário
         }
         result = graph.invoke(input=state)
-
-        if type(result.get('answer')) == str:
+        
+        if type(result.get('answer')) == dict:
             send_msg(
-                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=str(result.get('answer'))
+                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=str(result.get('answer')["output"])
             )
             return str(result.get('answer')["output"])
-        
+
         elif state['tool_type'] == 'reschedule_meet':
             send_msg(
                 url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text="Reagendando reunião"
