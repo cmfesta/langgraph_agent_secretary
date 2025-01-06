@@ -109,19 +109,9 @@ def maik_response():
             )
             return str(result.get('answer')["output"])
 
-        elif state['tool_type'] == 'reschedule_meet':
+        elif type(result.get('answer')) == str:
             send_msg(
-                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text="Reagendando reunião"
-            )
-
-        elif state['tool_type'] == "create_meet":
-            send_msg(
-                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text="Criando reunião"
-            )
-
-        elif state['tool_type'] == 'delete_meet':
-            send_msg(
-                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text="Deletando reunião."
+                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=result.get('answer')
             )
     return "ok"
 
