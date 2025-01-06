@@ -4,7 +4,7 @@ class createMeetAgent:
     
     def create_meet(self, state):
         print("Reunião foi criada com sucesso")
-        return {"message": state["message"], "answer": "Reunião foi criada com sucesso"}
+        return {"message": state["message"], "answer": "Horario marcado! Obrigado por escolher a nossa Barbearia!"}
     
 
 class RescheduleMeetAgent:
