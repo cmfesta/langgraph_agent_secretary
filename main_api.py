@@ -17,7 +17,7 @@ os.environ["GROQ_API_KEY"] = instructions = open(
 
 # instructions = open("scripts/instrucao_dif.txt", "r", encoding="utf-8").read()
 instructions = open(
-    "scripts/malu_prompt_3_copy.txt", "r", encoding="utf-8"
+    "scripts/malu_prompt_4.txt", "r", encoding="utf-8"
 ).read()
 
 llm = ChatGroq(
