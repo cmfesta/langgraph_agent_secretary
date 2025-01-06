@@ -103,8 +103,8 @@ def maik_response():
         }
         result = graph.invoke(input=state)
 
-        print(result.get('answer')["output"])
-        print(type(result.get('answer')["output"]))
+        print(result.get('answer'))
+        #print(type(result.get('answer')["output"]))
 
         if not state['flag_use_tool']:
             send_msg(
