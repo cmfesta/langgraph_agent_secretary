@@ -103,7 +103,7 @@ def maik_response():
         }
         result = graph.invoke(input=state)
 
-        if not state['flag_use_tool']:
+        if type(result.get('answer')) == str:
             send_msg(
                 url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=str(result.get('answer'))
             )
