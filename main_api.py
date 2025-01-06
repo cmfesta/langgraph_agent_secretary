@@ -17,7 +17,7 @@ os.environ["GROQ_API_KEY"] = instructions = open(
 
 # instructions = open("scripts/instrucao_dif.txt", "r", encoding="utf-8").read()
 instructions = open(
-    "scripts/malu_prompt.txt", "r", encoding="utf-8"
+    "scripts/malu_prompt_3_copy.txt", "r", encoding="utf-8"
 ).read()
 
 llm = ChatGroq(
@@ -102,10 +102,27 @@ def maik_response():
             "valid_params": False,   # Pode ser alterado para True conforme necessário
         }
         result = graph.invoke(input=state)
-        send_msg(
-            url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=str(result.get('answer')["output"])
-        )
-        return str(result.get('answer')["output"])
+
+        if not state['flag_use_tool']:
+            send_msg(
+                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text=str(result.get('answer')["output"])
+            )
+            return str(result.get('answer')["output"])
+        
+        elif state['tool_type'] == 'reschedule_meet':
+            send_msg(
+                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text="Reagendando reunião"
+            )
+
+        elif state['tool_type'] == "create_meet":
+            send_msg(
+                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text="Criando reunião"
+            )
+
+        elif state['tool_type'] == 'delete_meet':
+            send_msg(
+                url=wpp_creds["url"], token=wpp_creds["token"], number=number, msg_text="Deletando reunião."
+            )
     return "ok"
 
 
